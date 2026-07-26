@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Soporte | Camilove</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23d6336c' d='M12 21s-6.716-4.35-9.428-8.06C.4 10.02 1.02 6.24 4.2 4.68c2.36-1.16 4.94-.4 6.3 1.44L12 7.68l1.5-1.56c1.36-1.84 3.94-2.6 6.3-1.44 3.18 1.56 3.8 5.34 1.63 8.26C18.72 16.65 12 21 12 21z'/%3E%3C/svg%3E">
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700;800&family=Poppins:wght@400;500;600;700&family=Dancing+Script:wght@600;700&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+<script id="tailwind-config">
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          primary: "#d6336c", "primary-dark": "#a32458", gold: "#c9932f", "gold-light": "#e8c477",
+          background: "#fff6f8", surface: "#ffffff", "surface-alt": "#fdeef3", ink: "#3a2233", "ink-soft": "#7a5b68"
+        },
+        fontFamily: { display: ["Playfair Display", "serif"], script: ["Dancing Script", "cursive"], body: ["Poppins", "sans-serif"] },
+        spacing: { "container-max": "1200px", gutter: "24px" }
+      }
+    }
+  }
+</script>
+<style>
+  .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; vertical-align: middle; }
+  .marquee-bar { position: fixed; top: 0; left: 0; width: 100%; z-index: 70; height: 2.25rem; background: #d6336c; overflow: hidden; display: flex; align-items: center; }
+  .marquee-track { display: flex; white-space: nowrap; animation: marquee-scroll 22s linear infinite; }
+  .marquee-item { padding-right: 3rem; color: #fff; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.03em; text-transform: uppercase; }
+  @keyframes marquee-scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+</style>
+</head>
+<body class="bg-background text-ink font-body">
+
+<div class="marquee-bar" role="marquee" aria-label="Anuncio">
+  <div class="marquee-track">
+    <span class="marquee-item">Envíos a todo Colombia&nbsp;&nbsp;•&nbsp;&nbsp;Promociones todos los días&nbsp;&nbsp;•&nbsp;&nbsp;Envíos a todo Colombia&nbsp;&nbsp;•&nbsp;&nbsp;Promociones todos los días&nbsp;&nbsp;•&nbsp;&nbsp;Envíos a todo Colombia&nbsp;&nbsp;•&nbsp;&nbsp;Promociones todos los días</span>
+    <span class="marquee-item" aria-hidden="true">Envíos a todo Colombia&nbsp;&nbsp;•&nbsp;&nbsp;Promociones todos los días&nbsp;&nbsp;•&nbsp;&nbsp;Envíos a todo Colombia&nbsp;&nbsp;•&nbsp;&nbsp;Promociones todos los días&nbsp;&nbsp;•&nbsp;&nbsp;Envíos a todo Colombia&nbsp;&nbsp;•&nbsp;&nbsp;Promociones todos los días</span>
+  </div>
+</div>
+<div class="h-9"></div>
+
+<header class="bg-surface shadow-sm">
+  <div class="flex flex-col w-full max-w-container-max mx-auto px-gutter py-3">
+    <div class="flex items-center justify-between">
+      <a href="index.html" class="font-script text-[34px] leading-none text-primary">Camilove</a>
+      <nav class="hidden md:flex items-center gap-6 text-sm font-medium">
+        <a class="text-ink-soft hover:text-primary transition-colors" href="index.html">Inicio</a>
+        <a class="text-ink-soft hover:text-primary transition-colors" href="catalogo.html">Catálogo</a>
+      </nav>
+      <a href="catalogo.html" class="md:hidden p-2 text-ink hover:bg-surface-alt rounded-full"><span class="material-symbols-outlined">grid_view</span></a>
+    </div>
+  </div>
+</header>
+
+<main class="max-w-container-max mx-auto px-gutter py-12 md:py-16">
+  <div class="max-w-3xl mx-auto bg-surface rounded-2xl shadow-sm border border-primary/10 p-8 md:p-12">
+    <h1 class="font-display text-3xl md:text-4xl text-primary mb-10">Soporte</h1>
+
+    <div class="space-y-10">
+      <section class="flex gap-4">
+        <span class="material-symbols-outlined text-gold text-3xl shrink-0">verified_user</span>
+        <div>
+          <h2 class="font-display text-xl text-primary mb-2">Garantías</h2>
+          <p class="text-ink-soft leading-relaxed">Todos nuestros artículos cuentan con una garantía de un mes calendario, contado a partir de la fecha en la que usted recibe el producto. Esta cobertura aplica de manera exclusiva para fallas o defectos de fábrica comprobables. La garantía perderá su validez si se determina que el daño es consecuencia del mal uso del producto, exposición a condiciones inadecuadas, desgaste natural o alteraciones realizadas por el usuario.</p>
+        </div>
+      </section>
+
+      <section class="flex gap-4">
+        <span class="material-symbols-outlined text-gold text-3xl shrink-0">assignment_return</span>
+        <div>
+          <h2 class="font-display text-xl text-primary mb-2">Devoluciones y cambios</h2>
+          <p class="text-ink-soft leading-relaxed">Si el producto llega a sus manos con algún daño físico ocasionado durante el transporte o presenta un defecto amparado por nuestra política de garantía, usted tiene el derecho de solicitar una devolución o cambio. Para iniciar este trámite, es indispensable que se comunique con nuestro equipo de soporte en el menor tiempo posible, adjuntando evidencias fotográficas claras del estado del artículo y del empaque. Una vez evaluado su caso, le indicaremos los pasos a seguir para retornar el producto defectuoso y proceder con el envío del reemplazo, estableciendo los términos sobre la cobertura de los fletes de transporte.</p>
+        </div>
+      </section>
+
+      <section class="flex gap-4">
+        <span class="material-symbols-outlined text-gold text-3xl shrink-0">cancel</span>
+        <div>
+          <h2 class="font-display text-xl text-primary mb-2">Cancelaciones</h2>
+          <p class="text-ink-soft leading-relaxed">Dado que operamos con el servicio de transportadoras nacionales, toda solicitud de cancelación debe realizarse antes de que el paquete sea entregado a la empresa de mensajería. Una vez que el pedido ha sido despachado, cuenta con un número de guía y se encuentra en tránsito, el proceso de entrega sigue su curso regular y no puede detenerse de forma inmediata. Si usted decide cancelar su compra cuando el producto ya está en camino, le solicitamos notificar de inmediato a nuestro equipo de soporte para coordinar el retorno de la mercancía a nuestras instalaciones una vez la transportadora intente la entrega, evitando así reprocesos y sobrecostos operativos.</p>
+        </div>
+      </section>
+    </div>
+
+    <div class="mt-10 pt-8 border-t border-primary/10 text-center">
+      <a href="https://wa.me/573123587407" target="_blank" class="inline-flex items-center gap-2 px-6 py-3 bg-[#25D366] text-white rounded-lg font-semibold hover:opacity-90 transition-opacity">
+        <span class="material-symbols-outlined text-[18px]">chat</span> Contactar Soporte por WhatsApp
+      </a>
+    </div>
+  </div>
+</main>
+
+<footer class="bg-surface-alt border-t border-primary/10 mt-10">
+  <div class="max-w-container-max mx-auto px-gutter py-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-ink-soft">
+    <span>© 2026 Camilove. Todos los derechos reservados.</span>
+    <div class="flex gap-4">
+      <a class="hover:text-primary" href="privacidad.html">Privacidad</a>
+      <a class="hover:text-primary" href="terminos.html">Términos</a>
+      <a class="hover:text-primary" href="soporte.html">Soporte</a>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

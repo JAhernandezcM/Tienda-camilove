@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Camilove | Belleza, Cuidado, Confianza</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23d6336c' d='M12 21s-6.716-4.35-9.428-8.06C.4 10.02 1.02 6.24 4.2 4.68c2.36-1.16 4.94-.4 6.3 1.44L12 7.68l1.5-1.56c1.36-1.84 3.94-2.6 6.3-1.44 3.18 1.56 3.8 5.34 1.63 8.26C18.72 16.65 12 21 12 21z'/%3E%3C/svg%3E">
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700;800&family=Poppins:wght@400;500;600;700&family=Dancing+Script:wght@600;700&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+<script id="tailwind-config">
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          primary: "#d6336c",
+          "primary-dark": "#a32458",
+          gold: "#c9932f",
+          "gold-light": "#e8c477",
+          background: "#fff6f8",
+          surface: "#ffffff",
+          "surface-alt": "#fdeef3",
+          ink: "#3a2233",
+          "ink-soft": "#7a5b68"
+        },
+        fontFamily: {
+          display: ["Playfair Display", "serif"],
+          script: ["Dancing Script", "cursive"],
+          body: ["Poppins", "sans-serif"]
+        },
+        spacing: {
+          "section-gap": "80px",
+          "container-max": "1200px",
+          gutter: "24px"
+        }
+      }
+    }
+  }
+</script>
+<style>
+  .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; display: inline-block; vertical-align: middle; }
+  .shadow-soft { box-shadow: 0 6px 24px -6px rgba(214, 51, 108, 0.15); }
+  .hero-gradient { background: linear-gradient(120deg, #fff6f8 0%, #fdeef3 45%, #f7dfe9 100%); }
+  .marquee-bar { position: fixed; top: 0; left: 0; width: 100%; z-index: 70; height: 2.25rem; background: #d6336c; overflow: hidden; display: flex; align-items: center; }
+  .marquee-track { display: flex; white-space: nowrap; animation: marquee-scroll 22s linear infinite; }
+  .marquee-item { padding-right: 3rem; color: #fff; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.03em; text-transform: uppercase; }
+  @keyframes marquee-scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+</style>
+</head>
+<body class="bg-background text-ink font-body">
+
+<div class="marquee-bar" role="marquee" aria-label="Anuncio">
+  <div class="marquee-track">
+    <span class="marquee-item">Envíos a todo Colombia&nbsp;&nbsp;•&nbsp;&nbsp;Promociones todos los días&nbsp;&nbsp;•&nbsp;&nbsp;Envíos a todo Colombia&nbsp;&nbsp;•&nbsp;&nbsp;Promociones todos los días&nbsp;&nbsp;•&nbsp;&nbsp;Envíos a todo Colombia&nbsp;&nbsp;•&nbsp;&nbsp;Promociones todos los días</span>
+    <span class="marquee-item" aria-hidden="true">Envíos a todo Colombia&nbsp;&nbsp;•&nbsp;&nbsp;Promociones todos los días&nbsp;&nbsp;•&nbsp;&nbsp;Envíos a todo Colombia&nbsp;&nbsp;•&nbsp;&nbsp;Promociones todos los días&nbsp;&nbsp;•&nbsp;&nbsp;Envíos a todo Colombia&nbsp;&nbsp;•&nbsp;&nbsp;Promociones todos los días</span>
+  </div>
+</div>
+<div class="h-9"></div>
+
+<header class="fixed top-9 left-0 w-full z-50 bg-surface/95 backdrop-blur shadow-sm">
+  <div class="flex flex-col w-full max-w-container-max mx-auto px-gutter py-3">
+    <div class="flex items-center justify-between">
+      <div class="flex items-center gap-8">
+        <a href="index.html" class="flex items-center gap-2">
+          <span class="font-script text-[34px] leading-none text-primary">Camilove</span>
+        </a>
+        <nav class="hidden md:flex items-center gap-6 text-sm font-medium">
+          <a class="text-primary border-b-2 border-primary pb-1" href="index.html">Inicio</a>
+          <a class="text-ink-soft hover:text-primary transition-colors" href="catalogo.html">Catálogo</a>
+          <a class="text-ink-soft hover:text-primary transition-colors" href="catalogo.html?cat=Piel">Piel</a>
+          <a class="text-ink-soft hover:text-primary transition-colors" href="catalogo.html?cat=Cabello">Cabello</a>
+          <a class="text-ink-soft hover:text-primary transition-colors" href="catalogo.html?cat=Maquillaje">Maquillaje</a>
+          <a class="text-ink-soft hover:text-primary transition-colors" href="catalogo.html?cat=Ni%C3%B1os">Niños</a>
+        </nav>
+      </div>
+      <div class="flex items-center gap-3">
+        <a href="https://wa.me/573123587407" target="_blank" class="hidden sm:flex items-center gap-2 px-4 py-2 bg-[#25D366] text-white rounded-full text-sm font-semibold hover:opacity-90 transition-opacity">
+          <span class="material-symbols-outlined text-[18px]">chat</span> WhatsApp
+        </a>
+        <button class="p-2 text-ink hover:bg-surface-alt rounded-full transition-all active:scale-95 relative" onclick="document.getElementById('cart-sidebar').classList.toggle('translate-x-0')">
+          <span class="material-symbols-outlined">shopping_cart</span>
+          <span data-cart-count class="absolute top-0 right-0 bg-primary text-white text-[10px] w-4 h-4 flex items-center justify-center rounded-full" style="display:none">0</span>
+        </button>
+        <button id="mobile-menu-btn" class="md:hidden p-2 text-ink hover:bg-surface-alt rounded-full">
+          <span class="material-symbols-outlined">menu</span>
+        </button>
+      </div>
+    </div>
+    <div id="mobile-menu-panel" class="hidden md:hidden space-y-3 pt-4 pb-2 text-sm font-medium">
+      <a class="block text-primary" href="index.html">Inicio</a>
+      <a class="block text-ink-soft" href="catalogo.html">Catálogo</a>
+      <a class="block text-ink-soft" href="catalogo.html?cat=Piel">Piel</a>
+      <a class="block text-ink-soft" href="catalogo.html?cat=Cabello">Cabello</a>
+      <a class="block text-ink-soft" href="catalogo.html?cat=Maquillaje">Maquillaje</a>
+      <a class="block text-ink-soft" href="catalogo.html?cat=Ni%C3%B1os">Niños</a>
+    </div>
+  </div>
+</header>
+
+<!-- Carrito lateral -->
+<div class="fixed right-0 top-9 bottom-0 w-full md:w-96 bg-surface border-l border-surface-alt shadow-2xl z-[60] translate-x-full transition-transform duration-300 ease-in-out" id="cart-sidebar">
+  <div class="flex flex-col h-full p-6">
+    <div class="flex items-center justify-between mb-6">
+      <div>
+        <h2 class="font-display text-2xl text-primary">Tu Carrito</h2>
+        <p class="text-gold text-sm font-medium">Pago contra entrega</p>
+      </div>
+      <button class="p-2 hover:bg-surface-alt rounded-full" onclick="document.getElementById('cart-sidebar').classList.remove('translate-x-0')">
+        <span class="material-symbols-outlined">close</span>
+      </button>
+    </div>
+    <div class="flex-grow overflow-y-auto space-y-3">
+      <p data-cart-empty class="text-ink-soft text-sm text-center py-10">Tu carrito está vacío.<br>Explora el <a href="catalogo.html" class="text-primary underline">catálogo</a>.</p>
+      <div data-cart-items></div>
+    </div>
+    <div class="pt-6 border-t border-surface-alt mt-auto">
+      <div class="flex justify-between items-center mb-4">
+        <span class="font-semibold text-ink-soft">Subtotal</span>
+        <span data-cart-subtotal class="font-bold text-primary text-xl">$0</span>
+      </div>
+      <p data-min-purchase-msg class="hidden text-xs text-red-600 text-center mb-3"></p>
+      <a href="checkout.html" data-checkout-link class="block w-full py-4 bg-primary text-white rounded-lg font-bold text-center hover:opacity-90 transition-opacity active:scale-95">Finalizar Compra</a>
+      <button class="w-full py-2 mt-2 text-ink-soft hover:underline text-sm" onclick="document.getElementById('cart-sidebar').classList.remove('translate-x-0')">Seguir Comprando</button>
+    </div>
+  </div>
+</div>
+
+<main class="pt-[116px]">
+  <section class="hero-gradient relative overflow-hidden">
+    <div class="max-w-container-max mx-auto px-gutter py-16 md:py-24 grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+      <div class="max-w-xl">
+        <span class="inline-block px-4 py-1 bg-primary/10 text-primary rounded-full text-xs font-bold uppercase tracking-wider mb-6">Belleza · Cuidado · Confianza</span>
+        <h1 class="font-display text-4xl md:text-6xl font-bold text-ink mb-6 leading-tight">Cuida tu piel,<br><span class="text-primary">ama lo natural</span></h1>
+        <p class="text-lg text-ink-soft mb-8">Más de 60 productos de belleza natural: kits faciales, aceites, protectores solares y más. Pago contra entrega y envíos a toda Colombia.</p>
+        <div class="flex flex-col sm:flex-row gap-4">
+          <a class="px-8 py-4 bg-primary text-white rounded-lg font-bold text-center hover:shadow-lg transition-all active:scale-95" href="catalogo.html">Ver Catálogo</a>
+          <a class="px-8 py-4 border-2 border-primary text-primary rounded-lg font-bold text-center hover:bg-primary hover:text-white transition-all active:scale-95" href="https://wa.me/573123587407" target="_blank">Pedir por WhatsApp</a>
+        </div>
+      </div>
+      <div class="relative hidden md:block">
+        <div class="absolute -inset-6 bg-primary/10 rounded-[3rem] rotate-3"></div>
+        <img src="images/real/7.jpg" alt="Kit Facial de Rosas Camilove" class="relative w-full rounded-[2rem] shadow-2xl -rotate-2 hover:rotate-0 transition-transform duration-500">
+      </div>
+    </div>
+  </section>
+
+  <section class="max-w-container-max mx-auto px-gutter py-14">
+    <div class="grid grid-cols-3 md:grid-cols-6 gap-4 text-center">
+      <a href="catalogo.html?cat=Piel" class="group"><div class="bg-surface-alt rounded-2xl py-6 group-hover:bg-primary/10 transition-colors"><span class="material-symbols-outlined text-primary text-3xl">spa</span><p class="text-sm font-semibold mt-2">Piel</p></div></a>
+      <a href="catalogo.html?cat=Cabello" class="group"><div class="bg-surface-alt rounded-2xl py-6 group-hover:bg-primary/10 transition-colors"><span class="material-symbols-outlined text-primary text-3xl">brush</span><p class="text-sm font-semibold mt-2">Cabello</p></div></a>
+      <a href="catalogo.html?cat=Cuerpo" class="group"><div class="bg-surface-alt rounded-2xl py-6 group-hover:bg-primary/10 transition-colors"><span class="material-symbols-outlined text-primary text-3xl">favorite</span><p class="text-sm font-semibold mt-2">Cuerpo</p></div></a>
+      <a href="catalogo.html?cat=Maquillaje" class="group"><div class="bg-surface-alt rounded-2xl py-6 group-hover:bg-primary/10 transition-colors"><span class="material-symbols-outlined text-primary text-3xl">colorize</span><p class="text-sm font-semibold mt-2">Maquillaje</p></div></a>
+      <a href="catalogo.html?cat=Ni%C3%B1os" class="group"><div class="bg-surface-alt rounded-2xl py-6 group-hover:bg-primary/10 transition-colors"><span class="material-symbols-outlined text-primary text-3xl">child_care</span><p class="text-sm font-semibold mt-2">Niños</p></div></a>
+      <a href="catalogo.html" class="group"><div class="bg-primary rounded-2xl py-6 transition-colors"><span class="material-symbols-outlined text-white text-3xl">grid_view</span><p class="text-sm font-semibold mt-2 text-white">Ver todo</p></div></a>
+    </div>
+  </section>
+
+  <section class="bg-surface-alt py-section-gap">
+    <div class="max-w-container-max mx-auto px-gutter">
+      <div class="flex justify-between items-center mb-10">
+        <h2 class="font-display text-3xl md:text-4xl text-primary">Productos Destacados</h2>
+        <a class="text-primary font-semibold flex items-center gap-1 hover:underline" href="catalogo.html">Ver todo <span class="material-symbols-outlined text-base">arrow_forward</span></a>
+      </div>
+      <div id="featured-grid" class="grid grid-cols-2 md:grid-cols-4 gap-6"></div>
+    </div>
+  </section>
+
+  <section class="max-w-container-max mx-auto px-gutter py-section-gap">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+      <div class="p-6">
+        <span class="material-symbols-outlined text-primary text-4xl">local_shipping</span>
+        <h3 class="font-display text-xl text-ink mt-3 mb-1">Pago Contra Entrega</h3>
+        <p class="text-ink-soft text-sm">Fácil, seguro y confiable. Pagas al recibir tu pedido.</p>
+      </div>
+      <div class="p-6">
+        <span class="material-symbols-outlined text-primary text-4xl">schedule</span>
+        <h3 class="font-display text-xl text-ink mt-3 mb-1">Envíos a Todo Colombia</h3>
+        <p class="text-ink-soft text-sm">Recibe tu pedido en la puerta de tu casa en pocos días.</p>
+      </div>
+      <div class="p-6">
+        <span class="material-symbols-outlined text-primary text-4xl">chat</span>
+        <h3 class="font-display text-xl text-ink mt-3 mb-1">Atención por WhatsApp</h3>
+        <p class="text-ink-soft text-sm">Resolvemos tus dudas y confirmamos tu pedido personalmente.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="bg-surface-alt border-t border-primary/10">
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-gutter max-w-container-max mx-auto px-gutter py-section-gap">
+    <div class="space-y-4">
+      <span class="font-script text-3xl text-primary">Camilove</span>
+      <p class="text-ink-soft text-sm">Belleza, cuidado y confianza. Ama tu piel, refleja tu esencia.</p>
+    </div>
+    <div>
+      <h4 class="font-bold text-primary mb-4">Legal</h4>
+      <ul class="space-y-2 text-sm">
+        <li><a class="text-ink-soft hover:text-primary" href="privacidad.html">Privacidad</a></li>
+        <li><a class="text-ink-soft hover:text-primary" href="terminos.html">Términos</a></li>
+        <li><a class="text-ink-soft hover:text-primary" href="soporte.html">Soporte</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4 class="font-bold text-primary mb-4">Contacto</h4>
+      <ul class="space-y-2 text-sm text-ink-soft">
+        <li class="flex items-center gap-2"><span class="material-symbols-outlined text-[18px]">chat</span> WhatsApp 312 358 7407</li>
+        <li class="flex items-center gap-2"><span class="material-symbols-outlined text-[18px]">alternate_email</span> @camilove_tienda</li>
+      </ul>
+    </div>
+  </div>
+  <div class="max-w-container-max mx-auto px-gutter py-6 border-t border-primary/10 text-center text-xs text-ink-soft">© 2026 Camilove. Todos los derechos reservados.</div>
+</footer>
+
+<script src="js/products.js"></script>
+<script src="js/cart.js"></script>
+<script src="js/nav.js"></script>
+<script>
+  var featuredIds = [2, 4, 38, 17, 45, 63, 46, 50];
+  var grid = document.getElementById("featured-grid");
+  featuredIds.forEach(function (id) {
+    var p = Cart.getProductById(id);
+    if (!p) return;
+    var card = document.createElement("a");
+    card.href = "producto.html?id=" + p.id;
+    card.className = "group bg-surface rounded-xl overflow-hidden shadow-soft hover:shadow-lg transition-all border border-primary/5";
+    card.innerHTML =
+      '<div class="aspect-[3/4] overflow-hidden bg-surface-alt">' +
+      '<img class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500" src="' + p.image + '" alt="' + p.name + '">' +
+      "</div>" +
+      '<div class="p-3">' +
+      '<span class="text-[10px] text-gold uppercase tracking-widest font-bold">' + p.category + "</span>" +
+      '<h4 class="font-semibold text-ink text-sm mb-1 line-clamp-2">' + p.name + "</h4>" +
+      '<span class="text-primary font-bold">' + Cart.formatPrice(p.price) + "</span>" +
+      "</div>";
+    grid.appendChild(card);
+  });
+</script>
+</body>
+</html>
