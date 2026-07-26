@@ -121,20 +121,17 @@
 
     var msgEl = document.querySelector("[data-min-purchase-msg]");
     var linkEl = document.querySelector("[data-checkout-link]");
-    var ctaEl = document.querySelector("[data-min-purchase-cta]");
     if (msgEl && linkEl) {
       var total = getCartTotal();
       if (details.length > 0 && total < MIN_PURCHASE) {
         var missing = MIN_PURCHASE - total;
-        msgEl.textContent = "Te faltan " + formatPrice(missing) + " para el mínimo de compra de " + formatPrice(MIN_PURCHASE) + ".";
+        msgEl.innerHTML = "Te faltan " + formatPrice(missing) + " para el mínimo de compra de " + formatPrice(MIN_PURCHASE) + ". <a href='catalogo.html' class='underline font-semibold'>Ver Catálogo</a>";
         msgEl.classList.remove("hidden");
-        if (ctaEl) ctaEl.classList.remove("hidden");
         linkEl.classList.add("opacity-50", "pointer-events-none");
         linkEl.setAttribute("aria-disabled", "true");
         linkEl.setAttribute("tabindex", "-1");
       } else {
         msgEl.classList.add("hidden");
-        if (ctaEl) ctaEl.classList.add("hidden");
         linkEl.classList.remove("opacity-50", "pointer-events-none");
         linkEl.removeAttribute("aria-disabled");
         linkEl.removeAttribute("tabindex");
