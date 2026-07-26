@@ -73,20 +73,30 @@
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div class="space-y-1">
               <label class="text-xs font-semibold text-ink-soft" for="nombre">Nombre completo</label>
-              <input class="w-full bg-surface border border-primary/15 rounded-lg p-3 form-input-focus transition-all" id="nombre" name="nombre" placeholder="Ej: María García" required type="text">
+              <input class="w-full bg-surface border border-primary/15 rounded-lg p-3 form-input-focus transition-all" id="nombre" name="nombre" placeholder="Ej: María García" required type="text" autocomplete="name">
             </div>
             <div class="space-y-1">
               <label class="text-xs font-semibold text-ink-soft" for="celular">Celular (WhatsApp)</label>
-              <input class="w-full bg-surface border border-primary/15 rounded-lg p-3 form-input-focus transition-all" id="celular" name="celular" placeholder="300 123 4567" required type="tel">
+              <input class="w-full bg-surface border border-primary/15 rounded-lg p-3 form-input-focus transition-all" id="celular" name="celular" placeholder="300 123 4567" required type="tel" autocomplete="tel">
             </div>
           </div>
           <div class="space-y-1">
             <label class="text-xs font-semibold text-ink-soft" for="direccion">Dirección exacta</label>
-            <input class="w-full bg-surface border border-primary/15 rounded-lg p-3 form-input-focus transition-all" id="direccion" name="direccion" placeholder="Calle 123 #45-67 Apt 101" required type="text">
+            <input class="w-full bg-surface border border-primary/15 rounded-lg p-3 form-input-focus transition-all" id="direccion" name="direccion" placeholder="Calle 123 #45-67 Apt 101" required type="text" autocomplete="street-address">
           </div>
           <div class="space-y-1">
-            <label class="text-xs font-semibold text-ink-soft" for="ciudad">Ciudad / Departamento</label>
-            <input class="w-full bg-surface border border-primary/15 rounded-lg p-3 form-input-focus transition-all" id="ciudad" name="ciudad" placeholder="Ej: Bogotá D.C." required type="text">
+            <label class="text-xs font-semibold text-ink-soft" for="ciudad">Ciudad</label>
+            <select class="w-full bg-surface border border-primary/15 rounded-lg p-3 form-input-focus transition-all" id="ciudad" name="ciudad" required autocomplete="address-level2">
+              <option value="" disabled selected>Selecciona tu ciudad</option>
+              <option value="Bogotá">Bogotá</option>
+              <option value="Medellín">Medellín</option>
+              <option value="Cali">Cali</option>
+              <option value="Barranquilla">Barranquilla</option>
+              <option value="Bucaramanga">Bucaramanga</option>
+              <option value="Cartagena">Cartagena</option>
+              <option value="__otra__">Otra ciudad</option>
+            </select>
+            <input class="hidden w-full bg-surface border border-primary/15 rounded-lg p-3 form-input-focus transition-all mt-2" id="ciudad-otra" placeholder="Escribe el nombre de tu ciudad" type="text" autocomplete="address-level2">
             <p id="shipping-status" class="text-xs text-ink-soft"></p>
           </div>
         </section>
@@ -103,6 +113,7 @@
         </section>
 
         <p id="min-purchase-error" class="text-red-600 text-sm bg-red-50 border border-red-200 rounded-lg p-3 hidden"></p>
+        <a href="catalogo.html" id="min-purchase-cta" class="hidden w-full py-3 border-2 border-primary text-primary rounded-lg font-semibold text-center hover:bg-surface-alt transition-all">Ver Catálogo</a>
         <p id="form-error" class="text-error text-sm hidden">Tu carrito está vacío. Agrega productos desde el <a href="catalogo.html" class="underline">catálogo</a> antes de continuar.</p>
 
         <button id="submit-btn" class="w-full py-5 bg-primary text-white font-bold rounded-lg shadow-lg hover:opacity-90 active:scale-[0.98] transition-all flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed" type="submit">
@@ -162,6 +173,12 @@
   var totalEl = document.querySelector("[data-order-total]");
   var shippingStatusEl = document.getElementById("shipping-status");
   var ciudadInput = document.getElementById("ciudad");
+  var ciudadOtraInput = document.getElementById("ciudad-otra");
+
+  function getEffectiveCity() {
+    if (ciudadInput.value === "__otra__") return ciudadOtraInput.value.trim();
+    return ciudadInput.value;
+  }
 
   // shippingCost = null mientras no se conoce (aún no hay cotización real de Skydropx).
   var shippingCost = null;
@@ -197,22 +214,25 @@
     totalEl.textContent = Cart.formatPrice(currentTotal());
 
     var minErrorEl = document.getElementById("min-purchase-error");
+    var minCtaEl = document.getElementById("min-purchase-cta");
     var submitBtn = document.getElementById("submit-btn");
     var subtotal = Cart.getCartTotal();
     if (details.length > 0 && subtotal < Cart.MIN_PURCHASE) {
       var missing = Cart.MIN_PURCHASE - subtotal;
       minErrorEl.textContent = "La compra mínima es de " + Cart.formatPrice(Cart.MIN_PURCHASE) + ". Te faltan " + Cart.formatPrice(missing) + " en productos — vuelve al catálogo y agrega alguno más.";
       minErrorEl.classList.remove("hidden");
+      minCtaEl.classList.remove("hidden");
       submitBtn.disabled = true;
     } else {
       minErrorEl.classList.add("hidden");
+      minCtaEl.classList.add("hidden");
       submitBtn.disabled = false;
     }
   }
   renderSummary();
 
   function fetchShippingQuote() {
-    var city = ciudadInput.value.trim();
+    var city = getEffectiveCity();
     if (!city) return;
 
     shippingStatusEl.textContent = "Calculando envío...";
@@ -248,7 +268,22 @@
         renderSummary();
       });
   }
-  ciudadInput.addEventListener("blur", fetchShippingQuote);
+  ciudadInput.addEventListener("change", function () {
+    if (ciudadInput.value === "__otra__") {
+      ciudadOtraInput.classList.remove("hidden");
+      ciudadOtraInput.focus();
+      shippingEl.textContent = "Por confirmar";
+      shippingStatusEl.textContent = "";
+      shippingCost = 0;
+      shippingKnown = false;
+      renderSummary();
+    } else {
+      ciudadOtraInput.classList.add("hidden");
+      ciudadOtraInput.value = "";
+      fetchShippingQuote();
+    }
+  });
+  ciudadOtraInput.addEventListener("blur", fetchShippingQuote);
 
   document.getElementById("checkout-form").addEventListener("submit", function (e) {
     e.preventDefault();
@@ -259,6 +294,11 @@
       return;
     }
     errorEl.classList.add("hidden");
+
+    if (!getEffectiveCity()) {
+      ciudadOtraInput.focus();
+      return;
+    }
 
     if (Cart.getCartTotal() < Cart.MIN_PURCHASE) {
       // Defensa adicional: el botón ya debería estar deshabilitado en este caso.
@@ -275,7 +315,7 @@
       nombre: document.getElementById("nombre").value,
       celular: document.getElementById("celular").value,
       direccion: document.getElementById("direccion").value,
-      ciudad: document.getElementById("ciudad").value,
+      ciudad: getEffectiveCity(),
       productos: cartDetails.map(function (d) { return d.qty + "x " + d.product.name + " (" + Cart.formatPrice(d.product.price) + ")"; }).join(" | "),
       subtotal: Cart.getCartTotal(),
       envio: shippingKnown ? shippingCost : "Por confirmar",
