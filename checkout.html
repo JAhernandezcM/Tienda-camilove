@@ -98,7 +98,6 @@
             </select>
             <input class="hidden w-full bg-surface border border-primary/15 rounded-lg p-3 form-input-focus transition-all mt-2" id="ciudad-otra" placeholder="Escribe el nombre de tu ciudad" type="text" autocomplete="address-level2">
             <p id="shipping-status" class="text-xs text-ink-soft"></p>
-            <div id="shipping-options" class="space-y-2 mt-2"></div>
           </div>
         </section>
 
@@ -228,75 +227,25 @@
   }
   renderSummary();
 
-  var shippingOptionsEl = document.getElementById("shipping-options");
-  var shippingCarrierName = "";
+  // Tarifas fijas de envío (sin depender de una API externa).
+  var FLAT_RATE_BOGOTA = 12000;
+  var FLAT_RATE_OTHER = 15000;
 
-  function selectShippingRate(rate) {
-    shippingCost = rate.price;
-    shippingCarrierName = rate.carrier;
+  function applyFlatShipping() {
+    var city = getEffectiveCity();
+    if (!city) return;
+    var isBogota = ["bogotá", "bogota"].indexOf(city.trim().toLowerCase()) !== -1;
+    shippingCost = isBogota ? FLAT_RATE_BOGOTA : FLAT_RATE_OTHER;
     shippingKnown = true;
     shippingEl.textContent = Cart.formatPrice(shippingCost);
-    shippingStatusEl.textContent = "";
+    shippingStatusEl.textContent = "Envío a " + city + ".";
     renderSummary();
   }
 
-  function renderShippingOptions(rates) {
-    shippingOptionsEl.innerHTML = "";
-    rates.forEach(function (rate, i) {
-      var label = document.createElement("label");
-      label.className = "flex items-center justify-between gap-3 p-3 border border-primary/15 rounded-lg cursor-pointer text-sm has-[:checked]:border-primary has-[:checked]:bg-primary/5";
-      label.innerHTML =
-        '<span class="flex items-center gap-2">' +
-        '<input type="radio" name="shipping-rate" class="accent-primary" ' + (i === 0 ? "checked" : "") + '>' +
-        '<span>' + rate.carrier + ' <span class="text-ink-soft">(' + rate.eta + " día" + (rate.eta === 1 ? "" : "s") + ')</span></span>' +
-        "</span>" +
-        '<span class="font-semibold text-primary">' + Cart.formatPrice(rate.price) + "</span>";
-      label.querySelector("input").addEventListener("change", function () { selectShippingRate(rate); });
-      shippingOptionsEl.appendChild(label);
-    });
-    selectShippingRate(rates[0]);
-  }
-
-  function fetchShippingQuote() {
-    var city = getEffectiveCity();
-    if (!city) return;
-
-    shippingOptionsEl.innerHTML = "";
-    shippingStatusEl.textContent = "Calculando envío...";
-    shippingEl.textContent = "Calculando...";
-
-    fetch("/api/shipping-quote", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ city: city, declaredAmount: Cart.getCartTotal() })
-    })
-      .then(function (r) { return r.json(); })
-      .then(function (data) {
-        if (data.configured && data.rates && data.rates.length) {
-          shippingStatusEl.textContent = "Elige tu transportadora para " + city + ":";
-          renderShippingOptions(data.rates);
-        } else {
-          // Cotización automática aún no activada (falta conectar Skydropx).
-          shippingCost = 0;
-          shippingKnown = false;
-          shippingEl.textContent = "Por confirmar";
-          shippingStatusEl.textContent = "Te confirmaremos el valor del envío a " + city + " por WhatsApp.";
-          renderSummary();
-        }
-      })
-      .catch(function () {
-        shippingCost = 0;
-        shippingKnown = false;
-        shippingEl.textContent = "Por confirmar";
-        shippingStatusEl.textContent = "Te confirmaremos el valor del envío a " + city + " por WhatsApp.";
-        renderSummary();
-      });
-  }
   ciudadInput.addEventListener("change", function () {
     if (ciudadInput.value === "__otra__") {
       ciudadOtraInput.classList.remove("hidden");
       ciudadOtraInput.focus();
-      shippingOptionsEl.innerHTML = "";
       shippingEl.textContent = "Por confirmar";
       shippingStatusEl.textContent = "";
       shippingCost = 0;
@@ -305,10 +254,10 @@
     } else {
       ciudadOtraInput.classList.add("hidden");
       ciudadOtraInput.value = "";
-      fetchShippingQuote();
+      applyFlatShipping();
     }
   });
-  ciudadOtraInput.addEventListener("blur", fetchShippingQuote);
+  ciudadOtraInput.addEventListener("blur", applyFlatShipping);
 
   document.getElementById("checkout-form").addEventListener("submit", function (e) {
     e.preventDefault();
@@ -343,7 +292,7 @@
       ciudad: getEffectiveCity(),
       productos: cartDetails.map(function (d) { return d.qty + "x " + d.product.name + " (" + Cart.formatPrice(d.product.price) + ")"; }).join(" | "),
       subtotal: Cart.getCartTotal(),
-      envio: shippingKnown ? (shippingCost + " (" + shippingCarrierName + ")") : "Por confirmar",
+      envio: shippingKnown ? shippingCost : "Por confirmar",
       total: shippingKnown ? currentTotal() : Cart.getCartTotal(),
       fecha: new Date().toLocaleString("es-CO")
     };
