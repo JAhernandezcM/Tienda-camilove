@@ -691,7 +691,7 @@ window.CAMILOVE_PRODUCTS = [
     "name": "Kit de Ácido Salicílico - Piel Mixta y Grasa",
     "price": 39900,
     "category": "Piel",
-    "image": "images/productos/page_009.jpg",
+    "image": "images/real/9.jpg",
     "slug": 9,
     "description": [
       {
@@ -1319,7 +1319,7 @@ window.CAMILOVE_PRODUCTS = [
     "name": "Protector Solar FPS 50+ (Niacinamida / Vitamina C / Hombres)",
     "price": 14900,
     "category": "Piel",
-    "image": "images/productos/page_015.jpg",
+    "image": "images/real/15.jpg",
     "slug": 15,
     "description": [
       {
